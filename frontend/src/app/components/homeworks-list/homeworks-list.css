@@ -1,0 +1,40 @@
+.layout-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.layout-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 60px;
+  margin-top: 40px;
+}
+
+.sleep-img {
+  max-width: 300px;
+  margin-top: 20px;
+  opacity: 0.85;
+}
+
+.addhomework-img {
+  max-width: 300px;
+  margin-top: 20px;
+  opacity: 0.85;
+}
+.search-wrapper {
+  width: 100%;
+  min-width: 300px;
+  max-width: 600px;
+}
+
+.homework-list-box,
+.details-box {
+  width: 320px;
+  flex-shrink: 0;
+}
+
+.homework-list-box {
+  text-align: center;
+}

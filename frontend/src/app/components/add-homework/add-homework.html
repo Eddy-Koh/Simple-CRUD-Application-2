@@ -1,0 +1,52 @@
+<!-- Outer container that wrap all the addhomework operation -->
+<div class="submit-form adjustment">
+  <!-- Show form if not submitted -->
+  <div *ngIf="!submitted">
+    <h4 class="text-cent">Add Homework</h4>
+
+    <!-- Title Input -->
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        required
+        [(ngModel)]="homework.title"
+        name="title"
+      />
+    </div>
+
+    <!-- Description Input -->
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        class="form-control description-inp"
+        id="description"
+        required
+        [(ngModel)]="homework.description"
+        name="description"
+        rows="5"
+      ></textarea>
+    </div>
+
+    <!-- Button -->
+    <div class="d-flex gap-2 mt-3">
+      <button (click)="saveHomework()" class="btn btn-success mr-3">Add</button>
+      <button (click)="goBack()" class="btn btn-secondary">Back</button>
+    </div>
+  </div>
+
+  <!-- Show success message if submitted -->
+  <div *ngIf="submitted">
+    <h4><br />Homework was added successfully!</h4>
+
+    <div class="JotDown">
+      <img src="assets/images/JotDown.png" class="jotdown-img" />
+    </div>
+
+    <div class="b-center">
+      <button class="btn btn-success" (click)="newHomework()">Noted</button>
+    </div>
+  </div>
+</div>

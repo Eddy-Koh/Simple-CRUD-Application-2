@@ -1,0 +1,52 @@
+.edit-form {
+  max-width: 400px;
+  margin: auto;
+}
+
+.button-wrapper {
+  font-size: 1.2rem;
+  padding: 6px 12px;
+  text-align: center;
+}
+
+.description-inp{
+  height: 150px;
+  vertical-align: top;
+  padding-top: 8px;
+}
+
+.message-box {
+  max-width: 320px;
+  width: 100%;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-cent{
+  text-align: center;
+}
+
+.Details {
+  max-width: 1000px;
+  margin: 20px auto;
+  opacity: 0.85;
+  text-align: center;
+}
+
+.details-img {
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
+}
+
+.detail2-img {
+  max-width: 65%;
+  height: auto;
+  display: inline-block;
+}
+
+.action-button {
+  font-size: 0.9rem;
+  padding: 8px 14px;
+}

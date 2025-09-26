@@ -1,0 +1,114 @@
+<!-- View Mode -->
+<div *ngIf="viewMode">
+  <div *ngIf="currentHomework.id; else noHomeworkSelected">
+    <h4 class="text-cent">Homework Details</h4>
+    <br />
+    <div>
+      <label><strong>Title:</strong></label>
+      {{ currentHomework.title }}
+      <br />
+    </div>
+    <div>
+      <label><strong>Description:</strong></label>
+      <br />
+      {{ currentHomework.description }}
+      <br /><br />
+    </div>
+    <div>
+      <label><strong>Status:</strong></label>
+      {{ currentHomework.done ? 'Done' : 'In Progress' }}
+    </div>
+
+    <div class="button-wrapper">
+      <a class="badge badge-warning" [routerLink]="'/homeworks/' + currentHomework.id">
+        View / Edit
+      </a>
+    </div>
+
+    <div class="Details">
+      <img src="assets/images/Detail2.png" class="detail2-img" />
+    </div>
+  </div>
+
+  <!-- If no homework selected -->
+  <ng-template #noHomeworkSelected>
+    <div *ngIf="homeworks.length > 0">
+      <div class="message-box text-center">
+        <p class="text-muted">Please click on a homeworks list to show the details...</p>
+      </div>
+      <div class="Details">
+        <img src="assets/images/Detail.png" class="details-img" />
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Edit Mode -->
+<div *ngIf="!viewMode">
+  <div *ngIf="currentHomework.id; else cannotAccess">
+    <div class="edit-form">
+      <h4 class="text-cent"><br />Homework Details<br /></h4>
+      <form>
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            [(ngModel)]="currentHomework.title"
+            name="title"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            class="form-control description-inp"
+            id="description"
+            [(ngModel)]="currentHomework.description"
+            name="description"
+            rows="5"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label><strong>Status:</strong></label>
+          {{ currentHomework.done ? 'Done' : 'In Progress' }}
+        </div>
+      </form>
+
+      <button
+        class="badge badge-primary mr-2 action-button"
+        (click)="updateDone(!currentHomework.done)"
+      >
+        {{ currentHomework.done ? 'On-Going' : 'Done' }}
+      </button>
+
+      <button class="badge badge-danger mr-2 action-button" (click)="deleteHomework()">
+        Delete
+      </button>
+
+      <button
+        type="submit"
+        class="badge badge-success mb-2 action-button"
+        (click)="updateHomework()"
+      >
+        Update
+      </button>
+
+      <button
+        class="badge badge-secondary mb-2 mx-2 action-button"
+        (click)="goBack()"
+      >
+        Back
+      </button>
+
+      <p>{{ message }}</p>
+    </div>
+  </div>
+
+  <!-- If homework is not accessible -->
+  <ng-template #cannotAccess>
+    <p>Cannot access this Homework...</p>
+  </ng-template>
+</div>

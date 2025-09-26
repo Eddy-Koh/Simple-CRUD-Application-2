@@ -1,0 +1,71 @@
+<!-- Search Bar -->
+<div class="d-flex justify-content-center mt-4 mb-4 w-100">
+  <div class="input-group search-wrapper">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search by title"
+      [(ngModel)]="title"
+    />
+    <div class="input-group-append">
+      <button
+        class="btn btn-outline-secondary"
+        type="button"
+        (click)="searchTitle()"
+      >
+        Search
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Empty State: No homework at all -->
+<div class="d-flex flex-column align-items-center text-center w-100 mt-5"
+     *ngIf="homeworks.length === 0 && !isSearchMode">
+  <h4 class="mb-3">Homeworks List</h4>
+  <p class="text-muted">Currently does not have any homework ^_^</p>
+  <img src="assets/images/Sleep.png" alt="Sleep" class="sleep-img" />
+</div>
+
+<!-- Empty State: Search yielded no results -->
+<div class="d-flex flex-column align-items-center text-center w-100 mt-5"
+     *ngIf="homeworks.length === 0 && isSearchMode && isSearchEmpty">
+  <h4 class="mb-3">Homeworks List</h4>
+  <p class="text-muted">Currently does not have any homework that matches the keyword...</p>
+  <img src="assets/images/AddHomework1.png" alt="AddHomework" class="addhomework-img" />
+</div>
+
+<!-- Not Empty State -->
+<div class="layout-wrapper" *ngIf="homeworks.length > 0">
+  <div class="layout-container">
+    <!-- Homework List Section -->
+    <div class="homework-list-box">
+      <h4 class="mb-3 text-center">Homeworks List</h4>
+      <ul class="list-group mb-3">
+        <!-- @for replaced with *ngFor -->
+        <li
+          *ngFor="let homework of homeworks; let i = index"
+          class="list-group-item"
+          [class.active]="i == currentIndex"
+          (click)="setActiveHomework(homework, i)"
+        >
+          {{ homework.title }}
+        </li>
+      </ul>
+      <!-- Remove All button -->
+      <button class="btn btn-sm btn-danger mb-4 w-100" (click)="removeAllHomeworks()">
+        Remove All
+      </button>
+    </div>
+
+    <!-- Homework Details Section -->
+    <div class="details-box">
+      <!-- true: view mode, false: edit mode -->
+      <app-homework-details
+        [viewMode]="true"
+        [currentHomework]="currentHomework"
+        [homeworks]="homeworks"
+      ></app-homework-details>
+    </div>
+  </div>
+</div>
