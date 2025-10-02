@@ -1,8 +1,17 @@
 <!-- Outer container that wrap all the addhomework operation -->
 <div class="submit-form adjustment">
+
   <!-- Show form if not submitted -->
   <div *ngIf="!submitted">
     <h4 class="text-cent">Add Homework</h4>
+
+    <!-- Role-aware message -->
+    <div *ngIf="isTeacher" class="alert alert-info mt-3">
+      <strong>Note:</strong> This homework will be assigned to <em>all students</em>.
+    </div>
+    <div *ngIf="isStudent" class="alert alert-secondary mt-3">
+      <strong>Note:</strong> This homework will be added to <em>your personal list</em>.
+    </div>
 
     <!-- Title Input -->
     <div class="form-group">
@@ -14,6 +23,8 @@
         required
         [(ngModel)]="homework.title"
         name="title"
+        placeholder="Enter homework title"
+        aria-label="Homework Title"
       />
     </div>
 
@@ -27,13 +38,25 @@
         [(ngModel)]="homework.description"
         name="description"
         rows="5"
+        placeholder="Enter homework description"
+        aria-label="Homework Description"
       ></textarea>
+    </div>
+
+    <!-- Validation feedback -->
+    <div *ngIf="!homework.title || !homework.description" class="text-danger mt-2">
+      Title and description are required.
     </div>
 
     <!-- Button -->
     <div class="d-flex gap-2 mt-3">
-      <button (click)="saveHomework()" class="btn btn-success mr-3">Add</button>
-      <button (click)="goBack()" class="btn btn-secondary">Back</button>
+      <button (click)="saveHomework()" class="btn btn-success mr-3" aria-label="Add Homework">Add</button>
+      <button (click)="goBack()" class="btn btn-secondary" aria-label="Go Back">Back</button>
+    </div>
+
+    <!-- Optional loading spinner -->
+    <div *ngIf="loading" class="spinner-border text-primary mt-3" role="status">
+      <span class="sr-only">Saving...</span>
     </div>
   </div>
 
@@ -46,7 +69,7 @@
     </div>
 
     <div class="b-center">
-      <button class="btn btn-success" (click)="newHomework()">Noted</button>
+      <button class="btn btn-success" (click)="newHomework()" aria-label="Add Another Homework">Noted</button>
     </div>
   </div>
 </div>

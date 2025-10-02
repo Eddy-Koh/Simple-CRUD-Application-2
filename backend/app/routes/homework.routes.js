@@ -1,29 +1,40 @@
+const { authJwt } = require("../middleware");
+const homeworks = require("../controllers/homework.controller.js");
+
 // Routing to specific controller
 module.exports = app => {
-    const homeworks = require("../controller/homework.controller.js");
+    const router = require("express").Router();
 
-    var router = require("express").Router();
+    //Old version without authentication
+    /*
+    router.post("/", homeworks.create); // Create a new Homework
+    router.get("/", homeworks.findAll); // Retrieve all Homework
+    router.get("/done", homeworks.findAllDone); // Retrieve all done HomeworkS
+    router.get("/:id", homeworks.findOne); // Retrieve a single Homework with id
+    router.put("/:id", homeworks.update); // Update a Homework with id
+    router.delete("/:id", homeworks.delete); // Delete a Homework with id
+    router.delete("/", homeworks.deleteAll); // Delete all Homeworks
+    */
 
-    // Create a new Homework
-    router.post("/", homeworks.create);
+    // Create homework (student)
+    router.post("/", authJwt.verifyToken, homeworks.create);
 
-    // Retrieve all Homework
-    router.get("/", homeworks.findAll);
+    // Create homework (teacher for all students)
+    router.post("/add-all", [authJwt.verifyToken, authJwt.isTeacher], homeworks.addHomeworkForAllStudents);
 
-    // Retrieve all done HomeworkS
-    router.get("/done", homeworks.findAllDone);
+    // Update homework (student or teacher)
+    router.put("/:id", authJwt.verifyToken, homeworks.update);
 
-    // Retrieve a single Homework with id
-    router.get("/:id", homeworks.findOne);
+    // Delete homework (student or teacher)
+    router.delete("/:id", authJwt.verifyToken, homeworks.delete);
 
-    // Update a Homework with id
-    router.put("/:id", homeworks.update);
+    // View homework list
+    // - Student: gets own list
+    // - Teacher: must pass ?studentId=123
+    router.get("/", authJwt.verifyToken, homeworks.findAll);
 
-    // Delete a Homework with id
-    router.delete("/:id", homeworks.delete);
-
-    // Delete all Homeworks
-    router.delete("/", homeworks.deleteAll);
+    // View specific homework
+    router.get("/:id", authJwt.verifyToken, homeworks.findOne);
 
     app.use('/api/homeworks', router);
 };

@@ -1,0 +1,32 @@
+<div class="container">
+  <header class="jumbotron text-center">
+    <h3>Teacher Dashboard</h3>
+
+    <!-- Success content -->
+    <p *ngIf="content">{{ content }}</p>
+
+    <!-- Error message -->
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+  </header>
+
+  <!-- Dashboard features -->
+  <div class="card mt-3">
+    <div class="card-body">
+      <p>Welcome to your teacher dashboard. Here you can:</p>
+      <ul>
+        <li>Add homework to your students</li>
+        <li>View student homework lists</li>
+        <li>View and edit student homework details</li>
+        <li>Edit the homework status</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="text-center mt-4 mb-3">
+  <button class="btn btn-success" (click)="goToAddHomework()">+ Add Homework</button>
+</div>
+
+

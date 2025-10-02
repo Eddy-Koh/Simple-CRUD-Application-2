@@ -3,28 +3,41 @@
   <div *ngIf="currentHomework.id; else noHomeworkSelected">
     <h4 class="text-cent">Homework Details</h4>
     <br />
+
+    <!-- Title -->
     <div>
       <label><strong>Title:</strong></label>
       {{ currentHomework.title }}
       <br />
     </div>
+
+    <!-- Description -->
     <div>
       <label><strong>Description:</strong></label>
       <br />
       {{ currentHomework.description }}
       <br /><br />
     </div>
+
+    <!-- Status -->
     <div>
       <label><strong>Status:</strong></label>
       {{ currentHomework.done ? 'Done' : 'In Progress' }}
     </div>
 
-    <div class="button-wrapper">
+    <!-- Role-aware badge -->
+    <div *ngIf="currentHomework.createdByTeacher" class="mt-2">
+      <span class="badge badge-info">Assigned by Teacher</span>
+    </div>
+
+    <!-- View/Edit Button -->
+    <div class="button-wrapper mt-3">
       <a class="badge badge-warning" [routerLink]="'/homeworks/' + currentHomework.id">
         View / Edit
       </a>
     </div>
 
+    <!-- Decorative Image -->
     <div class="Details">
       <img src="assets/images/Detail2.png" class="detail2-img" />
     </div>
@@ -48,7 +61,10 @@
   <div *ngIf="currentHomework.id; else cannotAccess">
     <div class="edit-form">
       <h4 class="text-cent"><br />Homework Details<br /></h4>
+
+      <!-- Form -->
       <form>
+        <!-- Title -->
         <div class="form-group">
           <label for="title">Title</label>
           <input
@@ -57,9 +73,12 @@
             id="title"
             [(ngModel)]="currentHomework.title"
             name="title"
+            [readonly]="isStudent && currentHomework.createdByTeacher"
+            placeholder="Enter homework title"
           />
         </div>
 
+        <!-- Description -->
         <div class="form-group">
           <label for="description">Description</label>
           <textarea
@@ -68,42 +87,57 @@
             [(ngModel)]="currentHomework.description"
             name="description"
             rows="5"
+            [readonly]="isStudent && currentHomework.createdByTeacher"
+            placeholder="Enter homework description"
           ></textarea>
         </div>
 
+        <!-- Status -->
         <div class="form-group">
           <label><strong>Status:</strong></label>
           {{ currentHomework.done ? 'Done' : 'In Progress' }}
         </div>
       </form>
 
-      <button
-        class="badge badge-primary mr-2 action-button"
-        (click)="updateDone(!currentHomework.done)"
-      >
-        {{ currentHomework.done ? 'On-Going' : 'Done' }}
-      </button>
+      <!-- Buttons -->
+      <div class="mt-3 d-flex justify-content-center flex-wrap gap-3">
+        <button
+    class="badge bg-primary text-white px-3 py-2 fw-bold cursor-pointer"
+    (click)="updateDone(!currentHomework.done)"
+  >
+    {{ currentHomework.done ? 'Mark as In Progress' : 'Mark as Done' }}
+  </button>
 
-      <button class="badge badge-danger mr-2 action-button" (click)="deleteHomework()">
-        Delete
-      </button>
+        <!-- Delete (Student only if not teacher-assigned) -->
+        <button
+          *ngIf="!(isStudent && currentHomework.createdByTeacher)"
+          class="badge bg-danger text-white px-3 py-2 fw-bold cursor-pointer"
+          (click)="deleteHomework()"
+        >
+          Delete
+        </button>
 
-      <button
-        type="submit"
-        class="badge badge-success mb-2 action-button"
-        (click)="updateHomework()"
-      >
-        Update
-      </button>
+        <!-- Update (Student only if not teacher-assigned) -->
+        <button
+          *ngIf="!(isStudent && currentHomework.createdByTeacher)"
+          type="submit"
+          class="badge bg-success text-white px-3 py-2 fw-bold cursor-pointer"
+          (click)="updateHomework()"
+        >
+          Update
+        </button>
 
-      <button
-        class="badge badge-secondary mb-2 mx-2 action-button"
-        (click)="goBack()"
-      >
-        Back
-      </button>
+        <!-- Back -->
+        <button
+          class="badge bg-secondary text-white px-3 py-2 fw-bold cursor-pointer"
+          (click)="goBack()"
+        >
+          Back
+        </button>
+      </div>
 
-      <p>{{ message }}</p>
+      <!-- Message -->
+      <p class="mt-2">{{ message }}</p>
     </div>
   </div>
 

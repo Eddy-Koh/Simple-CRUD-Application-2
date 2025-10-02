@@ -8,18 +8,35 @@ import { HomeworksList } from './components/homeworks-list/homeworks-list';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+// Standalone components
+import { Login } from './login/login';
+import { Register } from './register/register';
+import { Home } from './home/home';
+import { Profile } from './profile/profile';
+import { BoardStudent } from './board-student/board-student';
+import { BoardTeacher } from './board-teacher/board-teacher';
+import { RouterModule } from '@angular/router';
+
 @NgModule({
   declarations: [
+    // Only non-standalone components go here
     App,
     AddHomework,
     HomeworkDetails,
-    HomeworksList
+    HomeworksList,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    Login,
+    Register,
+    Home,
+    Profile,
+    BoardStudent,
+    BoardTeacher,
+    RouterModule,
   ],
 
   providers: [],

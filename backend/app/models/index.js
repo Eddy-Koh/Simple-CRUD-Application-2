@@ -20,6 +20,18 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.homeworks = require("./homework.model.js")(sequelize, Sequelize);
+db.homework = require("./homework.model.js")(sequelize, Sequelize);
+db.user = require("../models/user.model.js")(sequelize, Sequelize);
+db.role = require("../models/role.model.js")(sequelize, Sequelize);
+
+// Define associations
+db.role.hasMany(db.user, { foreignKey: "roleId" });
+db.user.belongsTo(db.role, { foreignKey: "roleId" });
+
+db.user.hasMany(db.homework, { foreignKey: "studentId" });
+db.homework.belongsTo(db.user, { foreignKey: "studentId" });
+
+//preload role names
+db.ROLES = ["student", "teacher"];
 
 module.exports = db; //Make the db object available to other modules

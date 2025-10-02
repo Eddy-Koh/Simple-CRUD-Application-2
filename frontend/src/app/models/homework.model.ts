@@ -4,4 +4,6 @@ export class Homework {
   title?: string; // "?" means optional, can be empty
   description?: string;
   done?: boolean;
+  studentId?: number;
+  createdByTeacher?: boolean;
 }

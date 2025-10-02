@@ -1,0 +1,40 @@
+<div class="container">
+  <header class="jumbotron text-center">
+    <!-- Public content -->
+    <p class="lead">{{ content }}</p>
+
+    <!-- Logged-in view -->
+    <div *ngIf="isLoggedIn">
+      <hr />
+      <p>Welcome back, <strong>{{ username }}</strong>!</p>
+      <p>Your role: <span class="badge bg-info text-dark">{{ role }}</span></p>
+
+      <!-- Role-aware navigation -->
+      <div class="mt-3">
+        <a
+          *ngIf="role === 'teacher'"
+          routerLink="/board-teacher"
+          class="btn btn-outline-primary mx-1 mt-3"
+        >
+          Go to Teacher Dashboard
+        </a>
+        <a
+          *ngIf="role === 'student'"
+          routerLink="/board-student"
+          class="btn btn-outline-success mx-1 mt-3"
+        >
+          Go to Student Dashboard
+        </a>
+      </div>
+    </div>
+
+    <!-- Guest view -->
+    <div *ngIf="!isLoggedIn">
+      <hr />
+      <p class="text-muted">
+        <em>You are not logged in. Please sign in to access your dashboard.</em>
+      </p>
+      <a routerLink="/login" class="btn btn-primary mx-1 mt-3">Login</a>
+    </div>
+  </header>
+</div>

@@ -1,18 +1,33 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeworksList} from './components/homeworks-list/homeworks-list';
+
+import { HomeworksList } from './components/homeworks-list/homeworks-list';
 import { HomeworkDetails } from './components/homework-details/homework-details';
 import { AddHomework } from './components/add-homework/add-homework';
 
+import { Register } from './register/register';
+import { Login } from './login/login';
+import { Home } from './home/home';
+import { Profile } from './profile/profile';
+import { BoardStudent } from './board-student/board-student';
+import { BoardTeacher } from './board-teacher/board-teacher';
+
 const routes: Routes = [
-  { path: '', redirectTo: 'homeworks', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'homeworks', component: HomeworksList },
+  { path: 'homeworks/add', component: AddHomework },
   { path: 'homeworks/:id', component: HomeworkDetails },
-  { path: 'add', component: AddHomework }
+  //{ path: 'add', component: AddHomework },
+  { path: 'home', component: Home },
+  { path: 'login', component: Login },
+  { path: 'register', component: Register },
+  { path: 'profile', component: Profile },
+  { path: 'board-student', component: BoardStudent },
+  { path: 'board-teacher', component: BoardTeacher }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

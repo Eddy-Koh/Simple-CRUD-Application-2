@@ -1,0 +1,120 @@
+<div class="d-flex justify-content-center mt-5">
+  <div class="card card-container p-3" style="width: 500px;">
+    <!-- Profile Image -->
+    <img
+      id="profile-img"
+      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+      class="profile-img-card"
+      alt="Profile"
+    />
+
+    <!-- Registration Form -->
+    <form
+      *ngIf="!isSuccessful"
+      name="form"
+      (ngSubmit)="f.form.valid && onSubmit()"
+      #f="ngForm"
+      novalidate
+    >
+      <!-- Username -->
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          class="form-control"
+          name="username"
+          [(ngModel)]="form.username"
+          required
+          minlength="3"
+          maxlength="20"
+          #username="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && username.errors }"
+          placeholder="Enter username"
+        />
+        <div *ngIf="username.errors && f.submitted" class="invalid-feedback">
+          <div *ngIf="username.errors['required']">Username is required</div>
+          <div *ngIf="username.errors['minlength']">At least 3 characters</div>
+          <div *ngIf="username.errors['maxlength']">At most 20 characters</div>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          class="form-control"
+          name="email"
+          [(ngModel)]="form.email"
+          required
+          email
+          #email="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && email.errors }"
+          placeholder="Enter email"
+        />
+        <div *ngIf="email.errors && f.submitted" class="invalid-feedback">
+          <div *ngIf="email.errors['required']">Email is required</div>
+          <div *ngIf="email.errors['email']">Invalid email format</div>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          name="password"
+          [(ngModel)]="form.password"
+          required
+          minlength="6"
+          #password="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && password.errors }"
+          placeholder="Enter password"
+        />
+        <div *ngIf="password.errors && f.submitted" class="invalid-feedback">
+          <div *ngIf="password.errors['required']">Password is required</div>
+          <div *ngIf="password.errors['minlength']">At least 6 characters</div>
+        </div>
+      </div>
+
+      <!-- Role Selection -->
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select
+          class="form-control"
+          name="role"
+          [(ngModel)]="form.role"
+          required
+          #role="ngModel"
+          [ngClass]="{ 'is-invalid': f.submitted && role.errors }"
+        >
+          <option value="" disabled selected>Select role</option>
+          <option value="student">Student</option>
+          <option value="teacher">Teacher</option>
+        </select>
+        <div *ngIf="role.errors && f.submitted" class="invalid-feedback">
+          <div *ngIf="role.errors['required']">Role is required</div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-group">
+        <button class="btn btn-primary btn-block" [disabled]="loading">
+          {{ loading ? 'Signing Up...' : 'Sign Up' }}
+        </button>
+      </div>
+
+      <!-- Signup Error -->
+      <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning">
+        Signup failed!<br />{{ errorMessage }}
+      </div>
+    </form>
+
+    <!-- Success Message -->
+    <div *ngIf="isSuccessful" class="alert alert-success text-center">
+      <strong>Registration successful!</strong><br />
+      You can now log in and start using the app.
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+.profile-img-card {
+  width: 125px;         /* Adjust width as needed */
+  height: auto;         /* Maintains aspect ratio */
+  border-radius: 50%;   /* Makes it circular */
+  display: block;
+  margin: 0 auto 30px;  /* Centers the image and adds bottom spacing */
+}

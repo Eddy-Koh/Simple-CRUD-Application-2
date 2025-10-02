@@ -1,20 +1,48 @@
-<div>
-  <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand navbar-dark bg-dark"> <!--Dark theme nav bar, responsive expansion-->
-    <a href="#" class="navbar-brand">Homework To-Do List</a> <!--App name-->
-    <div class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a routerLink="homeworks" class="nav-link">-Homework List-</a> <!--Route to Homework Page-->
-      </li>
-      <li class="nav-item">
-        <a routerLink="add" class="nav-link">-Add Homework-</a> <!--Route to Add Homework-->
-      </li>
-    </div>
-  </nav>
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">Homework Checklists</a>
 
-  <!-- Main Content -->
-  <div class="container mt-3">
-    <router-outlet></router-outlet>
+  <div class="navbar-nav mr-auto">
+    <!-- Public Links -->
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/home">Home</a>
+    </li>
+
+    <!-- Student Board -->
+    <li class="nav-item" *ngIf="showStudentBoard">
+      <a class="nav-link" routerLink="/board-student">Student Board</a>
+    </li>
+
+    <!-- Teacher Board -->
+    <li class="nav-item" *ngIf="showTeacherBoard">
+      <a class="nav-link" routerLink="/board-teacher">Teacher Board</a>
+    </li>
+
+    <!-- Homework List -->
+    <li class="nav-item" *ngIf="isLoggedIn">
+      <a class="nav-link" routerLink="/homeworks">Homeworks</a>
+    </li>
   </div>
-</div>
 
+  <div class="navbar-nav ml-auto">
+    <!-- Logged-in user -->
+    <li class="nav-item" *ngIf="isLoggedIn">
+      <a class="nav-link" routerLink="/profile">{{ username }}</a>
+    </li>
+    <li class="nav-item" *ngIf="isLoggedIn">
+      <a class="nav-link" href="#" (click)="logout()">Logout</a>
+    </li>
+
+    <!-- Guest user -->
+    <li class="nav-item" *ngIf="!isLoggedIn">
+      <a class="nav-link" routerLink="/login">Login</a>
+    </li>
+    <li class="nav-item" *ngIf="!isLoggedIn">
+      <a class="nav-link" routerLink="/register">Sign Up</a>
+    </li>
+  </div>
+</nav>
+
+<!-- Routed content -->
+<div class="container mt-3">
+  <router-outlet></router-outlet>
+</div>

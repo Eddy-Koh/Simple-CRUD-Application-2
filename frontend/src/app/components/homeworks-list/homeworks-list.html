@@ -1,5 +1,5 @@
 <!-- Search Bar -->
-<div class="d-flex justify-content-center mt-4 mb-4 w-100">
+<div class="d-flex justify-content-center mt-4 mb-4 w-100" *ngIf="isStudent">
   <div class="input-group search-wrapper">
     <input
       type="text"
@@ -19,11 +19,27 @@
   </div>
 </div>
 
+<!-- Add Homework Button (Student only) -->
+<div class="text-center mb-3" *ngIf="isStudent">
+  <button class="btn btn-success" (click)="goToAddHomework()">+ Add Homework</button>
+</div>
+
+<!-- Select Student (Teacher only) -->
+<div *ngIf="isTeacher" class="form-group d-flex flex-column align-items-center">
+  <label for="studentSelect">Select Student</label>
+  <select id="studentSelect" class="form-control w-50" [(ngModel)]="selectedStudentId" (change)="retrieveHomeworks()">
+    <option [value]="null">-- Choose a student --</option>
+    <option *ngFor="let student of students" [value]="student.id">{{ student.username }}</option>
+  </select>
+</div>
+
 <!-- Empty State: No homework at all -->
 <div class="d-flex flex-column align-items-center text-center w-100 mt-5"
      *ngIf="homeworks.length === 0 && !isSearchMode">
   <h4 class="mb-3">Homeworks List</h4>
-  <p class="text-muted">Currently does not have any homework ^_^</p>
+  <p class="text-muted">
+    {{ isTeacher ? 'No homework found for selected student.' : 'You have no homework yet ^_^' }}
+  </p>
   <img src="assets/images/Sleep.png" alt="Sleep" class="sleep-img" />
 </div>
 
@@ -31,7 +47,7 @@
 <div class="d-flex flex-column align-items-center text-center w-100 mt-5"
      *ngIf="homeworks.length === 0 && isSearchMode && isSearchEmpty">
   <h4 class="mb-3">Homeworks List</h4>
-  <p class="text-muted">Currently does not have any homework that matches the keyword...</p>
+  <p class="text-muted">No homework matches the keyword...</p>
   <img src="assets/images/AddHomework1.png" alt="AddHomework" class="addhomework-img" />
 </div>
 
@@ -41,8 +57,14 @@
     <!-- Homework List Section -->
     <div class="homework-list-box">
       <h4 class="mb-3 text-center">Homeworks List</h4>
+
+      <!-- Role-aware subtitle -->
+      <p class="text-muted text-center mb-2" *ngIf="isTeacher && selectedStudentId">
+        Showing homework for {{ getStudentName(selectedStudentId) }}
+      </p>
+
       <ul class="list-group mb-3">
-        <!-- @for replaced with *ngFor -->
+        <!-- Homework items -->
         <li
           *ngFor="let homework of homeworks; let i = index"
           class="list-group-item"
@@ -52,8 +74,9 @@
           {{ homework.title }}
         </li>
       </ul>
-      <!-- Remove All button -->
-      <button class="btn btn-sm btn-danger mb-4 w-100" (click)="removeAllHomeworks()"> Remove All </button>
+
+      <!-- Remove All button removed -->
+      <!-- <button class="btn btn-sm btn-danger mb-4 w-100" (click)="removeAllHomeworks()"> Remove All </button> -->
     </div>
 
     <!-- Homework Details Section -->

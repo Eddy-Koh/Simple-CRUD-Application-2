@@ -10,7 +10,12 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         done: {
-            type: Sequelize.BOOLEAN
+            type: Sequelize.BOOLEAN,
+            defaultValue: false
+        },
+        createdByTeacher: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: false
         }
     });
 

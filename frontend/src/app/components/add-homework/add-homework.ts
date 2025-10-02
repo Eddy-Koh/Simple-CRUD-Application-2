@@ -3,6 +3,8 @@ import { Homework } from '../../models/homework.model';
 import { HomeworkService } from '../../services/homework';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-add-homework',
@@ -17,9 +19,11 @@ export class AddHomework {
     done: false
   };
   submitted = false;
+  loading = false; // for spinner
 
   constructor(
     private homeworkService: HomeworkService,
+    private authService: AuthService,
     private router: Router
   ) { }
 
@@ -30,19 +34,29 @@ export class AddHomework {
 
   // save homework to db
   saveHomework(): void {
+    if (!this.homework.title || !this.homework.description) return;
+
+    this.loading = true;
     const data = {
       title: this.homework.title,
-      description: this.homework.description
+      description: this.homework.description,
     };
 
-    this.homeworkService.create(data)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.submitted = true;
-        },
-        error: (e) => console.error(e)
-      });
+    const request = this.isTeacher
+      ? this.homeworkService.addHomeworkForAllStudents(data)
+      : this.homeworkService.create(data);
+
+    request.subscribe({
+      next: (res) => {
+        console.log(res);
+        this.submitted = true;
+        this.loading = false;
+      },
+      error: (e) => {
+        console.error(e);
+        this.loading = false;
+      }
+    });
   }
 
   // add another homework
@@ -53,5 +67,15 @@ export class AddHomework {
       description: '',
       done: false
     };
+  }
+
+  // check if user is teacher
+  get isTeacher(): boolean {
+    return this.authService.isTeacher();
+  }
+
+  // check if user is student
+  get isStudent(): boolean {
+    return this.authService.isStudent();
   }
 }

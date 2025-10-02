@@ -1,0 +1,36 @@
+<!-- Show profile if logged in -->
+<div *ngIf="currentUser; else loginPrompt">
+  <div class="container">
+    <header class="jumbotron text-center">
+      <h3>
+        <strong>{{ currentUser.username }}</strong>'s Profile
+      </h3>
+    </header>
+
+    <!-- Role -->
+    <p>
+      <strong>Role: </strong>
+      <span class="badge badge-info">{{ currentUser.role }}</span>
+    </p>
+
+    <!-- Token (truncated for safety) -->
+    <p>
+      <strong>Token: </strong>
+      <code>{{ currentUser.token }}</code>
+    </p>
+
+    <!-- Optional: navigation or logout -->
+    <div class="mt-4">
+      <a routerLink="/homeworks" class="btn btn-outline-primary mr-2">Go to Homeworks</a>
+      <a class="btn btn-outline-secondary" role="button" (click)="logout()">Logout</a>
+    </div>
+  </div>
+</div>
+
+<!-- If not logged in -->
+<ng-template #loginPrompt>
+  <div class="container text-center mt-5">
+    <p class="text-muted">Please login to view your profile.</p>
+    <a routerLink="/login" class="btn btn-primary">Login</a>
+  </div>
+</ng-template>
