@@ -19,13 +19,13 @@ const routes: Routes = [
   { path: 'homeworks', component: HomeworksList },
   { path: 'homeworks/add', component: AddHomework },
   { path: 'homeworks/:id', component: HomeworkDetails },
-  //{ path: 'add', component: AddHomework },
+  //{ path: 'add', component: AddHomework }, **Old version**
   { path: 'home', component: Home },
-  //{ path: 'login', component: Login },
-  // { path: 'register', component: Register },
+  //{ path: 'login', component: Login }, **Old version**
+  // { path: 'register', component: Register }, **Old version**
   { path: 'profile', component: Profile },
-  // { path: 'board-student', component: BoardStudent },
-  // { path: 'board-teacher', component: BoardTeacher }
+  // { path: 'board-student', component: BoardStudent }, **Old version**
+  // { path: 'board-teacher', component: BoardTeacher } **Old version**
   {
     path: 'login',
     component: Login,

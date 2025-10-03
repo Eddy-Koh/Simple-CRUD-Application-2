@@ -1,3 +1,4 @@
+// prevent students from accessing teacher-only routes or vice versa
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { AuthService } from './auth';

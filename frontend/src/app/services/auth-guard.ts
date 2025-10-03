@@ -1,3 +1,4 @@
+// prevent logged-in users from accessing login or registration pages
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService } from './auth';

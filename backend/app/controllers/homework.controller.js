@@ -46,13 +46,13 @@ exports.addHomeworkForAllStudents = async (req, res) => {
 
         // Validate input
         if (!title || !description) {
-        return res.status(400).send({ message: "Title and description are required." });
+            return res.status(400).send({ message: "Title and description are required." });
         }
 
         // Fetch all students (roleId = 1)
         const students = await db.user.findAll({ where: { roleId: 1 } });
         if (!students || students.length === 0) {
-        return res.status(404).send({ message: "No students found." });
+            return res.status(404).send({ message: "No students found." });
         }
 
         // Create one homework per student
@@ -176,12 +176,12 @@ exports.delete = async (req, res) => {
         const homework = await Homework.findByPk(id);
 
         if (!homework) {
-        return res.status(404).send({ message: "Homework not found." });
+            return res.status(404).send({ message: "Homework not found." });
         }
 
         // If user is student, only allow deleting their own homework
         if (req.userRole === 'student' && homework.studentId !== req.userId) {
-        return res.status(403).send({ message: "Unauthorized: Cannot delete another student's homework." });
+            return res.status(403).send({ message: "Unauthorized: Cannot delete another student's homework." });
         }
 
         // If teacher, allow deleting any homework
@@ -195,12 +195,12 @@ exports.delete = async (req, res) => {
 };
 
 
-// // Delete all Homeworks for the logged-in student
+// Delete all Homeworks for the logged-in student **Current not in use**
 // exports.deleteAll = (req, res) => {
 //     Homework.destroy({ where: { studentId: req.userId } })
 //         .then(nums => res.send({ message: `${nums} Homeworks were deleted successfully!` }))
 //         .catch(err => res.status(500).send({
-//         message: err.message || "Some error occurred while removing homeworks."
+//              message: err.message || "Some error occurred while removing homeworks."
 //         }));
 // };
 

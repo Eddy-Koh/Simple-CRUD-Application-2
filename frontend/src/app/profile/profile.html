@@ -13,13 +13,13 @@
       <span class="badge badge-info">{{ currentUser.role }}</span>
     </p>
 
-    <!-- Token (truncated for safety) -->
+    <!-- Token -->
     <p>
       <strong>Token: </strong>
       <code>{{ currentUser.token }}</code>
     </p>
 
-    <!-- Optional: navigation or logout -->
+    <!-- Navigate to homework page or logout -->
     <div class="mt-4">
       <a routerLink="/homeworks" class="btn btn-outline-primary mr-2">Go to Homeworks</a>
       <a class="btn btn-outline-secondary" role="button" (click)="logout()">Logout</a>
@@ -28,6 +28,7 @@
 </div>
 
 <!-- If not logged in -->
+<!-- In normal route will not be shown -->
 <ng-template #loginPrompt>
   <div class="container text-center mt-5">
     <p class="text-muted">Please login to view your profile.</p>

@@ -131,7 +131,6 @@ export class HomeworksList implements OnInit {
     return student ? student.username : 'Unknown Student';
   }
 
-
   // Navigate to add homework page
   goToAddHomework(): void {
     this.router.navigate(['/homeworks/add']);

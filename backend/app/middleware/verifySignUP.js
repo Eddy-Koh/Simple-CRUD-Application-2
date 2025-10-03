@@ -7,34 +7,34 @@ checkDuplicateUsernameOrEmail = async (req, res, next) => {
     try {
         // Username
         let user = await User.findOne({
-        where: {
-            username: req.body.username
-        }
+            where: {
+                username: req.body.username
+            }
         });
 
         if (user) {
-        return res.status(400).send({
-            message: "Failed! Username is already in use!"
-        });
+            return res.status(400).send({
+                message: "Failed! Username is already in use!"
+            });
         }
 
         // Email
         user = await User.findOne({
-        where: {
-            email: req.body.email
-        }
+            where: {
+                email: req.body.email
+            }
         });
 
         if (user) {
-        return res.status(400).send({
-            message: "Failed! Email is already in use!"
-        });
+            return res.status(400).send({
+                message: "Failed! Email is already in use!"
+            });
         }
 
         next();
     } catch (error) {
         return res.status(500).send({
-        message: "Unable to validate Username!"
+            message: "Unable to validate Username!"
         });
     }
 };
@@ -57,7 +57,7 @@ assignRoleId = async (req, res, next) => {
         //Not in use currently - Front end give user role option
         const role = await db.role.findOne({ where: { name: roleName } });
         if (!role) {
-        return res.status(400).send({ message: "Role not found!" });
+            return res.status(400).send({ message: "Role not found!" });
         }
 
         req.body.roleId = role.id; // attach roleId to request

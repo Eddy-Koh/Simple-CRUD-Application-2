@@ -27,7 +27,7 @@ app.use(
 //Database initialization
 const db = require("./app/models");
 const Role = db.role;
-db.sequelize.sync({ force: false}).then(() => { //force: true will drop the table if it already exists
+db.sequelize.sync({ force: false }).then(() => { //force: true will drop the table if it already exists
     console.log("DB synced.");        //force: false will not drop the table
     initial();
 });
@@ -62,8 +62,8 @@ async function initial() {
 
     for (const role of roles) {
         await Role.findOrCreate({
-        where: { id: role.id },
-        defaults: { name: role.name }
+            where: { id: role.id },
+            defaults: { name: role.name }
         });
     }
 }

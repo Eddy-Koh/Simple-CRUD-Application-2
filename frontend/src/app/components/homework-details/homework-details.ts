@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HomeworkService } from '../../services/homework';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Homework } from '../../models/homework.model';
-import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth';
 
 @Component({

@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { Homework } from '../../models/homework.model';
 import { HomeworkService } from '../../services/homework';
 import { Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth';
 
 @Component({

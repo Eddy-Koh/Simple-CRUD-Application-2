@@ -27,17 +27,17 @@ exports.signup = async (req, res) => {
 exports.signin = async (req, res) => {
     try {
         const user = await User.findOne({
-        where: { username: req.body.username },
-        include: Role // include role for access control
+            where: { username: req.body.username },
+            include: Role // include role for access control
         });
 
         if (!user) {
-        return res.status(404).send({ message: "User Not found." });
+            return res.status(404).send({ message: "User Not found." });
         }
 
         const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
         if (!passwordIsValid) {
-        return res.status(401).send({ message: "Invalid Password!" });
+            return res.status(401).send({ message: "Invalid Password!" });
         }
 
         const token = jwt.sign({ id: user.id, role: user.role.name},
@@ -51,11 +51,11 @@ exports.signin = async (req, res) => {
         req.session.token = token;
 
         return res.status(200).send({
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        role: user.role.name, // single role
-        accessToken: token
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            role: user.role.name, // single role
+            accessToken: token
         });
     } catch (error) {
         return res.status(500).send({ message: error.message });

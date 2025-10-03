@@ -59,17 +59,6 @@ export class Login implements OnInit {
         this.router.navigate(['/home']).then(() => {
             window.location.reload();
         });
-
-        // Redirect based on role
-        // if (this.userRole === 'teacher') {
-        //   this.router.navigate(['/board-teacher']).then(() => {
-        //     window.location.reload();
-        //   });
-        // } else {
-        //   this.router.navigate(['/board-student']).then(() => {
-        //     window.location.reload();
-        //   });
-        // }
       },
       error: err => {
         this.errorMessage = err.error.message || 'Login failed.';
