@@ -39,6 +39,7 @@ checkDuplicateUsernameOrEmail = async (req, res, next) => {
     }
 };
 
+//Not in use currently - Front end give user role option
 //Validates that the provided role exists in the system
 checkRolesExisted = (req, res, next) => {
     const roleName = req.body.roles?.[0];
@@ -52,8 +53,9 @@ checkRolesExisted = (req, res, next) => {
 assignRoleId = async (req, res, next) => {
     try {
         const roleName = req.body.roles?.[0] || "student"; // default to student
-        const role = await db.role.findOne({ where: { name: roleName } });
 
+        //Not in use currently - Front end give user role option
+        const role = await db.role.findOne({ where: { name: roleName } });
         if (!role) {
         return res.status(400).send({ message: "Role not found!" });
         }

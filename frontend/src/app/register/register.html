@@ -93,6 +93,7 @@
           <option value="student">Student</option>
           <option value="teacher">Teacher</option>
         </select>
+        <!-- Normally will not pass in this area -->
         <div *ngIf="role.errors && f.submitted" class="invalid-feedback">
           <div *ngIf="role.errors['required']">Role is required</div>
         </div>

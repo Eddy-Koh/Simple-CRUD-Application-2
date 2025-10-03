@@ -19,10 +19,6 @@ module.exports = (sequelize, Sequelize) => {
         User.hasMany(models.homework, {
             foreignKey: "studentId"
         });
-
-        User.hasMany(models.feedback, {
-            foreignKey: "teacherId"
-        });
     };
 
     return User;

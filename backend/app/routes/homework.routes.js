@@ -30,7 +30,7 @@ module.exports = app => {
 
     // View homework list
     // - Student: gets own list
-    // - Teacher: must pass ?studentId=123
+    // - Teacher: must pass studentId to get specific student's list
     router.get("/", authJwt.verifyToken, homeworks.findAll);
 
     // View specific homework

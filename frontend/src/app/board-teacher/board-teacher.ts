@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HomeworkService } from '../services/homework';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth';
 
 @Component({
   selector: 'app-board-teacher',
@@ -15,6 +16,7 @@ export class BoardTeacher implements OnInit {
   content?: string;
   errorMessage?: string;
   showAddHomeworkForm = false;
+  isTeacher = false;
   newHomework = {
     title: '',
     description: '',
@@ -24,7 +26,8 @@ export class BoardTeacher implements OnInit {
   constructor(
     private userService: UserService,
     private homeworkService: HomeworkService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +35,7 @@ export class BoardTeacher implements OnInit {
       next: data => {
         console.log('Teacher board data:', data);
         this.content = data.message;
+        this.isTeacher = this.authService.getUserRole() === 'teacher';
       },
       error: err => {
         console.error(err);

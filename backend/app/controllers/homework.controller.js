@@ -51,16 +51,16 @@ exports.addHomeworkForAllStudents = async (req, res) => {
 
         // Fetch all students (roleId = 1)
         const students = await db.user.findAll({ where: { roleId: 1 } });
-
         if (!students || students.length === 0) {
         return res.status(404).send({ message: "No students found." });
         }
 
         // Create one homework per student
         const homeworkEntries = students.map(student => ({
-        title,
-        description,
-        studentId: student.id
+            title,
+            description,
+            studentId: student.id,
+            createdByTeacher: true
         }));
 
         // Insert into database
@@ -79,26 +79,26 @@ exports.findAll = async (req, res) => {
         const title = req.query.title;
 
         if (req.role === "student") {
-        const condition = {
-            studentId: req.userId,
-            ...(title && { title: { [Op.like]: `%${title}%` } })
-        };
+            const condition = {
+                studentId: req.userId,
+                ...(title && { title: { [Op.like]: `%${title}%` } })
+            };
 
-        const homeworks = await Homework.findAll({ where: condition });
-        return res.send(homeworks);
+            const homeworks = await Homework.findAll({ where: condition });
+            return res.send(homeworks);
         }
 
         if (req.role === "teacher") {
-        const studentId = req.query.studentId;
-        if (!studentId) return res.status(400).send({ message: "studentId query required." });
+            const studentId = req.query.studentId;
+            if (!studentId) return res.status(400).send({ message: "studentId query required." });
 
-        const condition = {
-            studentId,
-            ...(title && { title: { [Op.like]: `%${title}%` } })
-        };
+            const condition = {
+                studentId,
+                ...(title && { title: { [Op.like]: `%${title}%` } })
+            };
 
-        const homeworks = await Homework.findAll({ where: condition });
-        return res.send(homeworks);
+            const homeworks = await Homework.findAll({ where: condition });
+            return res.send(homeworks);
         }
 
         return res.status(403).send({ message: "Unauthorized role." });
