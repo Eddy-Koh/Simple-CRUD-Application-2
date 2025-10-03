@@ -102,13 +102,13 @@
       <!-- Buttons -->
       <div class="mt-3 d-flex justify-content-center flex-wrap gap-3">
         <button
-    class="badge bg-primary text-white px-3 py-2 fw-bold cursor-pointer"
-    (click)="updateDone(!currentHomework.done)"
-  >
-    {{ currentHomework.done ? 'Mark as In Progress' : 'Mark as Done' }}
-  </button>
+          class="badge bg-primary text-white px-3 py-2 fw-bold cursor-pointer"
+          (click)="updateDone(!currentHomework.done)"
+        >
+          {{ currentHomework.done ? 'Mark as In Progress' : 'Mark as Done' }}
+        </button>
 
-        <!-- Delete (Student only if not teacher-assigned) -->
+        <!-- Delete -->
         <button
           *ngIf="!(isStudent && currentHomework.createdByTeacher)"
           class="badge bg-danger text-white px-3 py-2 fw-bold cursor-pointer"
@@ -117,7 +117,7 @@
           Delete
         </button>
 
-        <!-- Update (Student only if not teacher-assigned) -->
+        <!-- Update -->
         <button
           *ngIf="!(isStudent && currentHomework.createdByTeacher)"
           type="submit"

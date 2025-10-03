@@ -76,12 +76,11 @@ export class HomeworkDetails implements OnInit {
   updateHomework(): void {
     this.message = '';
 
-    //Still haven't fix yet
-    // Students can only update their own homework
-    // if (this.isStudent && this.currentHomework.createdByTeacher) {
-    //   this.message = 'You cannot edit homework assigned by a teacher.';
-    //   return;
-    // }
+    //Old version, current not used (if case)
+    if (this.isStudent && this.currentHomework.createdByTeacher) {
+      this.message = 'You cannot edit homework assigned by a teacher.';
+      return;
+    }
 
     this.homeworkService.update(this.currentHomework.id!, this.currentHomework)
       .subscribe({
@@ -95,11 +94,11 @@ export class HomeworkDetails implements OnInit {
 
   // delete the current homework
   deleteHomework(): void {
-    // Still haven't fix yet
-    // if (this.isStudent && this.currentHomework.createdByTeacher) {
-    //   this.message = 'You cannot delete homework assigned by a teacher.';
-    //   return;
-    // }
+    //Old version, current not used (if case)
+    if (this.isStudent && this.currentHomework.createdByTeacher) {
+      this.message = 'You cannot delete homework assigned by a teacher.';
+      return;
+    }
 
     this.homeworkService.delete(this.currentHomework.id!)
       .subscribe({
